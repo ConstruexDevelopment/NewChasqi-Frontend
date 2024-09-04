@@ -33,7 +33,7 @@ const handler = NextAuth({
           if (user1.error) {
             throw new Error(user1.error);
           }
-          const user = { id: 1, name: user1.tenantId, email: "miguel@chasqi.io" };
+          const user = { userId: 1, name: user1.tenantId, email: "miguel@chasqi.io" };
           return user;
         } catch (error) {
           console.error('Error en la autenticación:', error);
@@ -42,15 +42,6 @@ const handler = NextAuth({
       }
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-    async session({ session, token }) {
-      session.user = token;
-      return session;
-    },
-  },
 })
 
 export { handler as GET, handler as POST }

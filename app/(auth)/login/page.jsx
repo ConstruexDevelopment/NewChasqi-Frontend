@@ -11,7 +11,7 @@ import Link from "next/link";
 import Header from "@/components/home/Header";
 import Footer from "@/components/home/Footer";
 import { FaGoogle } from "react-icons/fa";
-import Btn from "@/components/Btn";
+import swal from 'sweetalert2'
 
 // Definir el esquema de validación con zod
 const schema = z.object({
@@ -78,12 +78,32 @@ const LogInPage = () => {
       tenantId: data.tenantId,
       password: data.password,
     });
+    showToast('success', 'Signed in successfully');
 
     if (!result.error) {
       window.location.href = '/company/employees';
     } else {
       alert('Login failed');
     }
+  };
+
+  const showToast = (icon, title) => {
+    const Toast = swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = swal.stopTimer;
+        toast.onmouseleave = swal.resumeTimer;
+      },
+    });
+
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
   };
 
   return (
