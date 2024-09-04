@@ -2,8 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import "./styles.css"
 import { FaAlignJustify } from "react-icons/fa";
+import { signOut, signIn, useSession } from 'next-auth/react'
 
 export default function Header() {
+    const { data: session, status } = useSession();
+    console.log('Session user object:', session?.user);
+
     return (
         <div className='menulink py-1 bg-white w-full' style={{ position: 'sticky', top: 0, opacity: 1 }}>
             <div className="">
@@ -48,6 +52,25 @@ export default function Header() {
                     <li className='linkcontainer'>
                         <div className='linkmenu'>
                             <div className='buttonlink flex'>
+                                {session?.user ? (
+                                    <div className='bg-sky-400 rounded px-3 py-2'>
+                                        <Link href="./">
+                                            Dashboard
+                                        </Link>
+                                        <p>{session.user?.name}</p>
+                                    </div>
+                                ) : (
+                                    <button className='bg-sky-400 rounded px-3 py-2'
+                                        onClick={() => signIn()}>
+                                        Sign In
+                                    </button>
+                                )}
+                                <button
+                                    onClick={() => signOut()}
+                                    className='bg-sky-400 rounded px-3 py-2'
+                                >
+                                    Sign out
+                                </button>
                                 <Link href="/login">
                                     <div className={` py-3 px-10 text-[16px] rounded-full  bg-[#65579d] hover:bg-[#6650bc] text-white text-center`}>
                                         Log in

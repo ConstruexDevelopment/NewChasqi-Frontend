@@ -22,8 +22,6 @@ export default function Sidebar() {
       if (token) {
           const userData = JSON.parse(token);
           setTenantId(userData.tenantId);
-      }else{
-          router.push(`/login`);
       }
   }, []);
 

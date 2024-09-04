@@ -31,8 +31,8 @@ const LogInPage = () => {
   });
 
   // Función para manejar el envío del formulario
-  
-  const onSubmit = async (data) => {
+
+  /*const onSubmit = async (data) => {
     try {
       // Llama al endpoint de login en tu backend
       const response = await fetch(`${backdorection}/tenants/login`, {
@@ -69,10 +69,10 @@ const LogInPage = () => {
       console.error("Error during login process:", error);
       alert("Login failed, please try again.");
     }
-  };
-  
+  };*/
+
   // Función para manejar el envío del formulario
-  /* const onSubmit = async (data) => {
+  const onSubmit = async (data) => {
     const result = await signIn("credentials", {
       redirect: false,
       tenantId: data.tenantId,
@@ -84,7 +84,7 @@ const LogInPage = () => {
     } else {
       alert('Login failed');
     }
-  };*/
+  };
 
   return (
     <div className="fixed-scale mx-auto min-h-screen">

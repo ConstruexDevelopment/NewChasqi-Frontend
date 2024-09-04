@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { useSession } from "next-auth/react";
 
 export default function EmployeeList() {
+  const { data: session, status } = useSession();
+  console.log({ session, status })
+  console.log("name sesion", session?.user?.name)
+
   const [employees, setEmployees] = useState([]);
   const router = useRouter();
   const backdorection = process.env.NEXT_PUBLIC_DIRECTION_PORT;
@@ -18,19 +22,19 @@ export default function EmployeeList() {
     if (token) {
       const userData = JSON.parse(token);
       setTenantId(userData.tenantId);
-      getEmployeeList(userData.tenantId)
     }
   }, []);
 
 
-  const getEmployeeList = async (tenantId) => {
+  const getEmployeeList = async () => {
+    console.log("ENTRO PE: ", session?.user?.name)
     try {
       // Obtener usuarios de empresa con x-tenant-id
       const response = await fetch(`${backdorection}/employees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-tenant-id": tenantId, // Pasar el nombre de la empresa como x-tenant-id
+          "x-tenant-id": session?.user?.name, // Pasar el nombre de la empresa como x-tenant-id
         },
       });
 
@@ -89,6 +93,9 @@ export default function EmployeeList() {
           >
             Create Employee
           </Link><br />
+          <button onClick={getEmployeeList}
+            className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center">Get employee list</button>
+          <br />
           <Link href={`/company/create-task-department`}
             className="mt-5 py-2 bg-[--secondary-color] text-white rounded-full font-semibold hover:bg-purple-800 transition-colors w-[220px] text-center"
           >

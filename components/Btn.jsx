@@ -12,7 +12,7 @@ export default function ButtonAuth() {
   if (session) {
     return (
       <>
-        Signed in as {session.user?.email} <br />
+        Signed in as {session.user?.tenantId} <br />
         <button
           onClick={() => signOut()}
           className="btn btn-danger"

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import {useSession } from "next-auth/react";
+import {useSession, signOut  } from "next-auth/react";
 export default function Navbar() {
   
   //const {data: session, status} = useSession();
@@ -20,13 +20,12 @@ export default function Navbar() {
     if (token) {
       const userData = JSON.parse(token);
       setTenantId(userData.tenantId);
-    } else {
-      router.push(`/login`);
     }
   }, []);
   //bg-[#A268A7]
   const handleLogout = () => {
     // Eliminar el token del localStorage
+    signIn()
     localStorage.removeItem("authToken");
 
     // Redirigir a la página de inicio de sesión
@@ -44,7 +43,7 @@ export default function Navbar() {
 
           <div className='mr-8'>
             <button className='bg-red-600 text-white rounded-full p-2 w-20'
-              onClick={handleLogout}>
+              onClick={() => signOut()}>
               Salir
             </button>
           </div>

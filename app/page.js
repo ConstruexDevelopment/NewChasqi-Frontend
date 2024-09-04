@@ -9,6 +9,7 @@ import Footer from "@/components/home/Footer";
 export default function Home() {
   const [idenviar, setIdenviar] = useState('');
   const [resspuesta, setResspuesta] = useState('valor inicial');
+  console.log(process.env.NEXT_PUBLIC_NEXTAUTH_SECRET)
 
   useEffect(() => {
     //pruebaMultenant().then(result => result).catch(error => console.log(error));
