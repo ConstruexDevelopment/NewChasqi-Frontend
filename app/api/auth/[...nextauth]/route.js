@@ -33,7 +33,7 @@ const handler = NextAuth({
           if (user1.error) {
             throw new Error(user1.error);
           }
-          const user = { userId: 1, name: user1.tenantId, email: "miguel@chasqi.io" };
+          const user = { name: user1.tenantId, email: "miguel@chasqi.io" };
           return user;
         } catch (error) {
           console.error('Error en la autenticación:', error);
